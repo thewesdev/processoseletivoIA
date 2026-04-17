@@ -311,7 +311,7 @@ Preencha todas as seções de forma clara e objetiva.
 
 **Exemplo:**
 
-👤 Identificação: **Nome Completo:**
+👤 Identificação: Weslley Fernandes
 
 
 ### 1️⃣ Resumo da Arquitetura do Modelo
@@ -319,35 +319,30 @@ Preencha todas as seções de forma clara e objetiva.
 Descreva, em palavras, a arquitetura da **CNN** implementada no arquivo
 `train_model.py`.
 
+A arquitetura utilizada para a CNN é uma sequência de camadas, onde a primeira é uma entrada de dado utilizada por outras camadas, o `shape`, que em seguida é modificado para ter um terceiro valor, um canal de cores, que como o valor é 1, é considerado grayscale, depois vem uma sequencia de `Conv2D` e `MaxPooling2D` até que os dados sejam processados o máximo que se pode, se tentar adicionar mais 1 MaxPooling2D e em seguinda um Conv2D dará erro, e se for retirado essas sequências de MaxPooling2D e Conv2D o modelo ficará muito maior, pois as imagens são reduzidas a cada processo, principalmente nas camadas de MaxPooling2D, que reduzem o tamanho da imagem mantendo o mais importante, e por fim existe a camada Flatten que transforma os dados bidimensionais processados até o momento em um vetor unidimensional necessário para as próximas duas ultimas etapas, que são 2 Dense's, onde o primeiro tem 16 neurônios que combinam as caracteristicas recebidas pela rede neural, e logo após, o ultimo Dense com 10 neurônios, um para cada dígito possível no dataset mnist, com a ativação softmax que transforma o retorno em probabilidades.
 
 
 ### 2️⃣ Bibliotecas Utilizadas
 
-Liste as principais bibliotecas utilizadas no projeto, preferencialmente
-com suas versões.
-
+- TensorFlow
+- Numpy
 
 
 ### 3️⃣ Técnica de Otimização do Modelo
 
-Explique qual técnica foi utilizada para otimizar o modelo no arquivo
-`optimize_model.py`.
-
+Eu utilizei a técnica `Integer Quantization`, eu a vi na página do tensorflow, ela era uma das recomendadas para Edge AI pois ela otimizava bastante o modelo com uma pequena perda de precisão.
 
 
 ### 4️⃣ Resultados Obtidos
 
-Informe o principal resultado obtido após o treinamento do modelo.
-
+O melhor resultado que obtive após fazer vários testes trocando valores na arquitetura foi aproximadamente 98% de precisão com um modelo otimizado de 15.6kB, eu consegui reduzir ainda mais esse tamanho, só que a perda de precisão foi um pouco maior, eu consegui algo em torno de 8kB, quase 9kB a uma precisão de 95%.
 
 
 ### 5️⃣ Comentários Adicionais (Opcional)
 
-Utilize este espaço para comentar:
-- Dificuldades encontradas  
-- Decisões técnicas importantes  
-- Limitações do modelo  
-- Aprendizados durante o desafio
+Gostei do desafio, principalmente de ficar testando valores na arquitetura para tentar conseguir melhores resultados, até atingir o resultado que me satisfez, 15.6kB com precisão de 98%, quanto mais eu ia mexendo e reduzindo a quantidade de filtros na camada de convolução mais o modelo ia tendo o tamanho reduzido, com uma perda quase insignificante de precisão. Antes de começar a sair testando valores eu tinha um modelo .h5 com 1.11MB, e quando otimizado ficava a 120kB aproximadamente, e então fui reduzindo a quantidade de filtros e a quantidade de neurônios.
+
+Outra coisa que quero apontar que me intrigou é que se eu usar os mesmos dados, o mesmo processo e parâmetros na arquitetura o resultado será sempre o mesmo, eu refiz algumas vezes o treinamento e a otimização do modelo e o resultado era sempre o mesmo, algo bem determinístico.
 
 
 ## 🆘 Suporte
